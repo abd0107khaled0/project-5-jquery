@@ -1,0 +1,934 @@
+/*start our framework*/
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    min-width: 1250px;
+    
+}
+.container {
+   width: 1200px;
+    margin: auto;
+    position: relative;
+    
+}
+
+.table {
+      height: 100%;
+    display: table;
+    
+}
+
+.text-center {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle
+}
+.upper {
+    text-transform: uppercase
+}
+.main-color {
+    color: #f7600e;
+    
+}
+.main-background {
+    background-color: #f7600e;
+    
+}
+.hidden {
+    display: none
+}
+.table-row {
+    display: table-row;
+    height: 100% 
+}
+.overlay {
+    background-color: rgba(49, 55, 61, .9 );
+    height: 100%;
+    width: 100%;
+    color: #FFF;
+    
+}
+.main{
+margin: 10px 0 40px;
+    line-height: 2;
+    color: #888;
+    font-size: 20px;
+}
+/*end our framework*/
+
+/*start header*/
+
+.header {
+    background-image: url(../photo/lap2.jpg);
+    background-size: cover;
+   -webkit-background-size: cover;
+   -moz- background-size: cover;
+    -o-background-size: cover;
+}
+.header .overlay {
+    background-color: rgba(49, 55, 61, .9 );
+    height: 100%;
+    width: 100%;
+    color: #FFF;
+    
+}
+.header .navbar {
+    overflow: hidden;
+    padding: 20px 0 ;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.header .navbar .links{
+    float: right;
+    
+}
+.header .navbar .links i {
+    margin-left: 13px;
+    
+}
+.header .arrow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0 ;
+    
+}
+.header .intro h1 {
+    margin: 0;
+    font-weight: 800;
+    font-size: 50px;
+    
+}
+.header .intro p {
+    margin: 5px 0 40px ;
+    line-height: 1.9;
+    font-size: 20px;
+    color: #E2E2E2;
+    
+}
+
+.header .buttons button {
+    background: transparent;
+    color: #FFF;
+    width: 180px;
+    padding: 0;
+    margin: 0 8px;
+    border-radius: 10px;
+    border: 1px solid #909090;
+    font-size: 14px;
+    transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -webkit-transition: all .5s ease-in-out;
+    
+}
+.header .buttons button:hover {
+    background-color: #f7600e;
+    border: 1px solid #f7600e;;
+    color: #FFF;
+    
+}
+.header .arrow i {
+    font-weight: 900;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 50%;
+    cursor: pointer;
+    
+}
+/*end header*/
+
+/*start features*/
+
+.features {
+    padding: 40px 0;
+    overflow: hidden
+}
+/*
+.features .container {
+   display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-column-gap: 40px;
+    grid-row-gap: 40px;
+    
+}
+*/
+.features .box {
+    float: left;
+    width: 22%;
+    margin-right: 4%;
+   
+    
+}
+.features .box:last-child{
+    margin-right: 0;
+    
+}
+.features .box i {
+    color: #f7600e;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    line-height: 120px;
+    transition: all 0.5s ease-in-out;
+    
+}
+.features .box  i:hover {
+    background-color: #f7600e;
+    color: #FFF;
+    
+}
+.features .box h3 {
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #050505 ;
+    
+}
+.features .box p {
+    line-height: 2;
+    color: #888
+}
+/*end features*/
+
+
+/*start subscribe*/
+
+.subscribe {
+    background-image: url(../photo/sub.jpg);
+    background-size: cover;
+    color: #FFF;
+   
+}
+.subscribe .overlay {
+    background-color: rgba(49, 55, 61, .9 );
+    height: 100%;
+    width: 100%;
+   
+    
+}
+.subscribe form{
+    padding: 100px 0;
+    margin: auto;
+    width: 800px;
+    text-align: center
+}
+
+.subscribe form input[type="email"]{ 
+    padding: 4px;
+    width: 500px;
+    font-size: 20px;
+    border-radius: 10px;
+    position: relative;
+    top: 2px;
+    
+
+}
+    
+.subscribe form button{
+    padding: 10px;
+    width: 200px;
+    background-color: #f7600e;
+    border: none;
+    color: #FFF;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-size: 14px;
+    
+} 
+
+/*end subscribe*/
+
+/*start our-work*/
+
+.our-work h2 {
+    font-weight: 500;
+    font-size: 35px;
+    margin-bottom: 0;
+    
+}
+.our-work h2 ~ p{
+    line-height: 2;
+    margin: 10px 0 40px;
+    
+}
+.our-work {
+    padding: 50px 0 ;
+    
+}
+.items-box .item img {
+    width: 100% ;
+    height: 290px
+}
+.items-box .item {
+    width: 30%;
+    float: left;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-left: 3%
+}
+.our-work .show-more {
+    background: transparent;
+    border: 1px solid #CCC;
+    width: 180px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #555;
+     transition: all 0.5s ease-in-out;
+}
+.our-work .show-more:hover {
+     background-color: #f7600e;
+    color: #FFF;    
+}
+.our-work .items-box {
+    overflow: hidden;
+    
+}
+.our-work .items-box .item .over{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 99%;
+    width: 100%;
+    background-color: rgba(247, 96, 14, .9);
+    color: #FFF;
+    transition: all .5s ease-in-out;
+    display: none
+}
+.our-work .items-box .item:hover .over {
+    display: block
+}
+.our-work .items-box .item .over h4 {
+    font-size: 24px;
+    margin-top: 50px
+}
+.our-work .items-box .item .over p{
+    margin-bottom: 27px;
+    margin-top: 10px;
+    line-height: 2;
+    
+}
+.our-work .items-box .item .over button{
+    background-color: transparent;
+    width: 180px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #FFF;
+    transition: all .5s ease-in-out
+}
+.our-work .items-box .item .over button:hover {
+    background-color: #FFF;
+    color: #f7600e
+}
+
+/*end our-work*/
+
+/*start Testimonials*/
+
+.testim {
+    background-image: url(../photo/bm.jpg);
+    background-size: cover;
+    
+}
+.testim .clint {
+    padding: 50px 0;
+    color: #FFF;
+     font-size: 20px;
+    margin-left: 80px
+}
+.testim .clint img {
+    height: 150px;
+    border-radius: 25%;
+    
+    
+}
+.testim .clint p {
+    line-height: 2;
+    font-style: italic;
+    
+}
+.testim .fa-chevron-right {
+    position: absolute;
+    top: 50%;
+    right: -50px;
+    color: #999;
+    
+}
+.testim .fa-chevron-left {
+    position: absolute;
+    top: 50%;
+    left: 0;
+     color: #999;
+    
+}
+.testim .fa-chevron-left:hover,
+.testim .fa-chevron-right:hover {
+    color: #f7600e;
+    
+}
+.hiddeen {
+    display: none;
+    
+}
+
+/*end Testimonials*/
+
+/*start our team*/
+
+.our-team {
+    padding: 50px 0;
+    
+}
+.our-team h2{
+    font-size: 35px;
+    margin-bottom: 0;
+    
+}
+.our-team .main {
+    margin: 10px 0 40px;
+    line-height: 2;
+    color: #888;
+    font-size: 20px;
+    
+}
+.the-team .person img {
+      width: 100%;
+    height: 290px;
+    border-radius: 20%;
+    filter: gray ;
+    filter: grayscale(1);
+    transition: all 0.5s ease-in-out;
+    
+    
+}
+.the-team .person:hover img {
+     filter: gray ;
+    filter: grayscale(0);
+    transform: rotate(5deg);
+   
+}
+.the-team .person:hover h3 {
+    color: #ff2314;
+}
+.the-team .person:hover .social-icons .fa-facebook-f {
+     background-color: #3b5998;
+
+}
+.the-team .person:hover .social-icons .fa-twitter {
+     background-color: #55acee;
+
+}
+.the-team .person:hover .social-icons .fa-google-plus-g {
+     background-color: #dc4e41;
+
+}
+.our-team .the-team .person {
+    float: left;
+    width: 20%;
+    margin-left: 5%;
+   
+    
+}
+.our-team .the-team {
+    overflow: hidden
+}
+.our-team .the-team .social-icons i {
+    background-color: #9da1a5;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    color: #FFF
+}
+
+/*end our team*/
+
+/*start contact*/
+
+.contact {
+    background-image: url('../photo/wb.jpg')
+}
+.contact .overlay {
+    padding: 50px 0 ;
+    color: #FFF;
+    
+}
+.contact h2 {
+    font-size: 35px
+}
+.contact form {
+    width: 700px;
+    text-align: center;
+    margin: 50px auto;
+    overflow: hidden
+    
+}
+.contact form input[type="text"],
+.contact form input[type="email"]{
+    width: 45%;
+    padding: 0 10px ;
+    line-height: 40px;
+    border-radius: 10px;
+    border: 1px solid #CCC ;
+    height: 40px;
+    background-color: transparent;
+    color: #FFF;
+    
+}
+.contact form input[type="email"] {
+    margin-right: 5%;
+    float: left
+    
+}
+.contact form input[type="text"] {
+    float: right
+}
+.contact form textarea {
+    margin-top: 20px;
+    width: 100%;
+     padding: 0 10px ;
+    border-radius: 10px;
+    border: 1px solid #CCC ;
+    height: 140px;
+    background-color: transparent;
+    color: #FFF;
+    
+    
+}
+.contact form .info {
+    overflow: hidden;
+    margin-top: 10px;
+    
+}
+.contact form .info button {
+    float: left;
+    padding: 10px;
+    width: 200px;
+    background-color: #f7600e;
+    border: none;
+    color: #FFF;
+    border-radius: 10px;
+    font-size: 14px;
+    
+}
+.contact form .info .form-icons {
+    float: right
+}
+.contact form .info .form-icons i {
+     background-color: #9da1a5;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #FFF
+}
+.contact form .info .form-icons .fa-facebook-f {
+     background-color: #3b5998;
+
+}
+.contact form .info .form-icons .fa-twitter {
+     background-color: #55acee;
+
+}
+.contact form .info .form-icons .fa-google-plus-g {
+     background-color: #dc4e41;
+
+}
+
+/*end contact*/
+
+/*start footer*/
+
+.footer {
+    background-color: #3b434c;
+    color: #FFF;
+    overflow: hidden;
+    padding: 30px 0;
+    
+}
+.footer .design {
+    float: right;
+    
+}
+.footer .copyright {
+    float: left;
+    
+}
+/*end footer*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

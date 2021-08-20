@@ -1,0 +1,361 @@
+
+$('body').on("click", '.drop-btn', function() {
+	$(".dropdown-content").not(this).css('display', 'none');
+	dropdownDiv = $(this).parents('.dropdown');
+	dropdownDiv = dropdownDiv.find(".dropdown-content");
+	dropdownDiv.toggle("show");
+});
+
+window.onclick = function(event) {
+  if (event.target.className !== 'drop-btn') {
+	  $(".dropdown-content").css('display', 'none');
+  }
+}
+
+function formatSeconds(time) {
+	var h = Math.floor(time / 3600);
+    var m = Math.floor((time - (h*3600)) / 60);
+    var s = (time - ((m*60) + (h*3600)));
+	if(h>0){h = h+':';}else{ h='';}
+	if(m<10){m = '0'+m+':';}else{m= m+':';}
+	if(m==0){m = '00:';}
+	if(s<10){s = '0'+s;}
+	if(s==0){s = '00';}
+	
+    return h+m+s;
+}
+
+function toHHMMSS(secs) {
+    var hours = Math.floor(secs/3600);
+    (hours >= 1) ? secs = secs - (hours*3600) : hours = '00';
+    var min = Math.floor(secs/60);
+    (min >= 1) ? secs = secs - (min*60) : min = '00';
+    (secs < 1) ? secs='00' : void 0;
+
+    (min.toString().length == 1) ? min = '0'+min : void 0;    
+    (secs.toString().length == 1) ? secs = '0'+secs : void 0;    
+
+    return hours+':'+min+':'+secs;
+}
+var progress = '.progress-bar';
+var pBar = '.p-bar';
+var current = 0;
+var elm = '[sound-data]';
+var elmObj = $(elm);
+var playlist = $('body');
+var nextbtn = $('.next');
+var prevbtn = $('.prev');
+var splayer = document.getElementById("splayer");
+var mp3src	= document.getElementById("splayer-mp3");
+var fullPlay = 0;
+var support_autoplay = 0;
+    
+$('.playlist').animate({
+	scrollTop: $('.playlist').scrollTop(0)
+});
+
+function play_it(playlist){
+	if(page_type == 'surah_listen' || page_type == 'reciter_view') {
+		var body = $("html, body");
+		body.stop().animate({scrollTop:0}, 200, 'swing', function() {});
+		if (!splayer.duration || splayer.currentTime == 0) {
+			fullPlay = 1;
+			first_link = playlist.find(elm)[0];
+			if(first_link != undefined){
+				run($(first_link));
+			}
+		}
+	}
+}
+
+play_it(playlist);
+
+function track_len(){
+	tracks = playlist.find(elm);
+	return tracks.length;
+	//~ alert(3);
+}
+
+$('body').on("click", elm, function(e) {
+	e.preventDefault();
+	link = $(this);
+	playlist = $(link).parents('.playlist');
+	current = playlist.find(elm).index(link);
+	run(link);
+	//~ alert(current);
+});
+
+$('body').on("click", ".play-all", function(e) {
+	e.preventDefault();
+	current = 0;
+	playlist = $('.playlist');
+	first_link = playlist.find(elm)[0];
+	if(first_link != undefined){
+		run($(first_link));
+	}
+	//~ alert(5);
+});
+
+$('.player .play').click(function(){
+	if (splayer.paused) {
+		splayer.play();
+	} else {
+		splayer.pause();
+	}
+	//~ alert(6);
+});
+
+function next_end(){
+	if(new_page == 0){
+		$(pBar).css('width', 0);
+		$('.player .info .title').text('');
+		$('.player .info .time .full').text('/00:00:00');
+		len = track_len(elm);
+		current++;
+		if(page_type == 'surah_listen' || page_type == 'surah_get'){
+			if(current == len){
+				current = 0;
+				link = playlist.find(elm)[0];
+				next_plink = $(link).parents('li').find(".title-container > a").attr('href');
+				spf.navigate(next_plink);
+				run($(link));
+			}else{
+				link = playlist.find(elm)[current];
+				next_plink = $(link).parents('li').find(".title-container > a").attr('href');
+				spf.navigate(next_plink);
+				run($(link));
+			}
+		}else{
+			if(current == len){
+				current = 0;
+				link = playlist.find(elm)[0];
+			}else{
+				link = playlist.find(elm)[current];
+			}
+			run($(link));
+		}
+	}else{
+		$(pBar).css('width', 0);
+		splayer.currentTime = 0;
+		$('.playlist li.active').removeClass('active');
+		$(elm).removeClass('icon-pause');
+		$(elm).addClass('icon-play');
+	}
+	//~ alert(7);
+}
+$(splayer).bind("ended", function(e) {
+	e.preventDefault();
+	next_end();
+	//~ alert(8);
+});
+
+$(nextbtn).click(function(e){
+	e.preventDefault();
+	next_end();
+	//~ alert(9);
+});
+
+$(prevbtn).click(function(e){
+	e.preventDefault();
+	$(pBar).css('width', 0);
+	$('.player .info .title').text('');
+	$('.player .info .time .full').text('/00:00:00');
+	link = $('.playlist > li.active ' + elm);
+	len = track_len(elm);
+	current++;
+	if(page_type == 'surah_listen' || page_type == 'surah_get'){
+		if(current == 1){
+			current = len-1;
+			link = playlist.find(elm)[current];
+			next_plink = $(link).parents('li').find(".title-container > a").attr('href');
+			spf.navigate(next_plink);
+		}else{
+			current = current-2;
+			link = playlist.find(elm)[current];
+			next_plink = $(link).parents('li').find(".title-container > a").attr('href');
+			spf.navigate(next_plink);
+		}
+	}else{
+		if(current == 1){
+			current = len-1;
+			link = playlist.find(elm)[current];
+		}else{
+			current = current-2;
+			link = playlist.find(elm)[current];
+		}
+		run($(link));
+	}
+	
+	//~ alert(10);
+});
+
+$('body').on('click', '.player .loop', function(){
+	if(splayer.loop == false){
+		splayer.loop = true;
+		$('.player .loop').addClass('active');
+	}else{
+		splayer.loop = false;
+		$('.player .loop').removeClass('active');
+	}
+	//~ alert(11);
+});
+
+$('body').on('click', progress, function(e){
+	parentOffset = $(this).offset(); 
+	pct = ((e.pageX - parentOffset.left)/ $(this).outerWidth()) * 100;
+	$(pBar).css('width', pct + "%");
+	
+	splayer.currentTime = (pct/100) * splayer.duration;
+	//~ alert(12);
+});
+
+function run(link){
+	
+	$(".playlist .player").hide();
+	$(link).parents('li').find(".player").show();
+
+	soundData = $(link).attr('sound-data').split('?')[0];
+	function loading_dot(){
+		$("i").removeClass('load');
+		$('.player .play i').removeClass('icon-play');
+		$('.player .play i').removeClass('icon-pause');
+		$(elm).removeClass('icon-play');
+		$(elm).removeClass('icon-pause');
+		$(elm).addClass('icon-play');
+		$("[sound-data*='"+soundData+"']").removeClass('icon-play');
+		$("[sound-data*='"+soundData+"']").addClass('load');
+		$('.player .play i').addClass('load');
+	}
+	
+	splayer.volume = 0.95;
+	playlist = $(link).parents('.playlist');
+	
+	new_track	= $(link).attr('sound-data');
+	this_track	= mp3src.src;
+	
+	$('.track-title').html($(link).attr('title-data'));
+	mytitleid = $(link).attr('title-data');
+	$('.playlist li').removeClass('active');
+	$('.bg-progress').css('width', '0%');
+	$(link).parents('li').addClass('active');
+	$("[sound-data*='"+soundData+"']").parents('li').addClass('active');
+	$('.player .img img').attr('src', '/pics/reciters/thumbs/' + $(link).attr('cid-data') + '_40_40.jpg');
+	
+	function TryPlay(player) {
+		player.load();
+		if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+			//~ console.log('firefox');
+			async function playAudio() {
+				try {
+					await player.play();
+					support_autoplay = 1;
+					//~ console.log(support_autoplay);
+					$(pBar).css('width', 0);
+					splayer.play();
+				} catch(err) {
+					support_autoplay = 0;
+				}
+			}
+			playAudio();
+			
+		}else{
+			playPromise = player.play();
+			if (playPromise !== undefined) {
+				playPromise.then(_ => {
+					support_autoplay = 1;
+					//~ console.log(support_autoplay);
+					$(pBar).css('width', 0);
+				})
+				.catch(error => {
+					support_autoplay = 0;
+				});
+			}
+		}
+		
+	}
+	
+	if(this_track.split('?')[0] == new_track.split('?')[0]){
+		
+		if (splayer.paused) {
+			splayer.play();
+		} else {
+			if(fullPlay == 1) {
+				loading_dot();
+				splayer.load(); 
+				splayer.play()
+			}else{
+				splayer.pause();
+			}
+		}
+
+	}else{
+		loading_dot();
+		mp3src.src = new_track;
+		TryPlay(splayer);
+	}
+	
+	$(splayer).bind("waiting", function() {
+		loading_dot();
+	});
+	
+	$(splayer).bind("timeupdate", function() {
+		duration = splayer.duration;
+		$('.playlist li.active .bg-progress').css('width', (splayer.currentTime/duration) * 100 + '%');
+		$(pBar).css('width', (splayer.currentTime/duration) * 100 + '%');
+		currentDuration = Math.floor(splayer.currentTime);
+		$('.player .time .current').text(formatSeconds(currentDuration));
+		$("[sound-data*='"+soundData+"']").parents('li').addClass('active');
+		$("[sound-data*='"+soundData+"']").addClass('icon-pause');
+	});
+
+	$(splayer).bind("pause", function() {
+		$("i").removeClass('load');
+		$(link).removeClass('icon-pause');
+		$('.player .play i').removeClass('icon-pause');
+		$(link).addClass('icon-play');
+		$('.player .play i').addClass('icon-play');
+	});
+	
+	$(splayer).bind("playing", function() {
+		$(link).removeClass('icon-play');
+		$(elm).removeClass('icon-play');
+		$(elm).removeClass('icon-pause');
+		$(elm).addClass('icon-play');
+		$('.player .play i').removeClass('icon-play');
+		$("[sound-data*='"+soundData+"']").addClass('icon-pause');
+		$('.player .play i').addClass('icon-pause');
+		duration = Math.floor(splayer.duration);
+		$('.player .time .full').text(formatSeconds(duration));
+		$('.player .info .title').text($(link).attr('title-data'));
+		$("i").removeClass('load');
+		if(page_type != 'surah_listen' && page_type != 'surah_get'){
+			window.history.pushState($(link).attr('cid-data'), 'Title', window.location.href.split('#')[0] + '#play');
+			ga("set", "page", window.location.href + "#play");
+			ga("send", "pageview");
+		}
+	});
+	
+	if(support_autoplay == 0){	
+		$("i").removeClass('load');
+		$('.play i').removeClass('icon-pause');
+		$('li.active').removeClass('active');
+		$('.play i').addClass('icon-play');
+	}
+	support_autoplay = 0;
+	new_page = 0;
+	fullPlay = 0;
+}
+
+$('body').on('click', '.load-more button', function(){
+	loadmore(this);
+});
+
+$('body').on("click", "[data-widget='reciters'] .pic", function(e) {
+	e.preventDefault();
+	spf.navigate($(this).parents('li').find('.title-container > a').attr('href'));
+});
+$('body').on("click", ".table .thumb img", function(e) {
+	e.preventDefault();
+	spf.navigate($(this).parents('.table').find('.card-body > a.title').attr('href'));
+});
+    

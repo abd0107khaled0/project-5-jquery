@@ -1,0 +1,60 @@
+var lorCarousel 	= '.lor-carousel';
+var lorContent		= '.lor-content';
+var lorItem			= '.lor-item';
+var lang 			= $('html').attr('lang');
+
+function loadCarousel(selector, lorNavObj, nav)	{
+	
+	options = {};
+	if(lang == 'ar'){
+		direction = 'right';
+	}else{
+		direction = 'left';
+	}
+	
+	lorCarouselObj	= lorNavObj.parents(selector);
+	lo_contentObj	= lorCarouselObj.children(lorContent);
+	lo_itemObj		= lorCarouselObj.children(lorContent).children(lorItem);
+	lo_countItem 	= lo_itemObj.length;
+	lo_itemFW 		= lo_itemObj.outerWidth();
+	//lo_itemFW 		= lo_itemW+(parseInt($(lorItem).css('padding-left') )+parseInt($(lorItem).css('padding-right') ));
+	lo_totalContW 	= lo_countItem*lo_itemFW-(lorCarouselObj.outerWidth());
+	lo_currentRW	= parseInt(lo_contentObj.css(direction));
+	lo_currentRW	= (lo_currentRW < 0) ? lo_currentRW * -1 : lo_currentRW;
+	
+	if(nav == 'next'){
+		if(lo_currentRW <= lo_totalContW){
+			lorNavObj.prop('disabled',true);
+			options[direction] = "-="+lo_itemFW+"px";
+			lo_contentObj.animate(options, "fast", function(){ lorNavObj.prop('disabled',false); });
+			lorCarouselObj.children('.lor-prev').css('display', 'block');
+		}else{
+			lorNavObj.css('display', 'none');
+		}
+	}
+	
+	if(nav == 'prev'){
+		if(lo_currentRW >= lo_itemFW){
+			lorNavObj.prop('disabled',true);
+			options[direction] = "+="+lo_itemFW+"px";
+			lo_contentObj.animate(options, "fast", function(){ lorNavObj.prop('disabled',false); });
+			lorCarouselObj.children('.lor-next').css('display', 'block');
+		}else{
+			lorNavObj.css('display', 'none');
+		}
+	}
+}
+	
+$(lorCarousel).on('resize', function () {
+	// do func on div resized
+});
+		
+$('body').on('click', '.lor-next', function(e) {
+	e.preventDefault();
+	loadCarousel(lorCarousel, $(this), 'next');
+});
+
+$('body').on('click', '.lor-prev', function(e) {
+	e.preventDefault();
+	loadCarousel(lorCarousel, $(this), 'prev');
+});

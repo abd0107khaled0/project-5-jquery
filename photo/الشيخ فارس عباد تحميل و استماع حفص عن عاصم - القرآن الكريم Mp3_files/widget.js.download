@@ -1,0 +1,99 @@
+var widgets = $('[data-widget]');
+if(widgets.length > 0){
+	widgetime = 20;
+	widgets.each(function( index ) {
+		var myVals = { 
+				type : $(this).attr('data-type'), 
+				show : $(this).attr('data-show')
+			}
+		var $_GET = {};
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+			function decode(s) {
+				return decodeURIComponent(s.split("+").join(" "));
+			}
+
+			$_GET[decode(arguments[1])] = decode(arguments[2]);
+		});
+		var region = '';
+		if($_GET['region'] != undefined){
+			region = '?region=' + $_GET["region"];
+		}
+		var data_play = $(this).attr('data-play');
+		var data_col = $(this).attr('data-col');
+		var lang = '/' + ($('html').attr('lang'));
+		if(lang == '/ar'){
+			lang = '';
+		}
+		var postUrl = lang + '/widget/' + $(this).attr('data-widget')+region;
+		var current_widget = this;
+		setTimeout(function(){
+		$.ajax({
+			type: 'POST',
+			url: postUrl,
+			data: myVals,
+			dataType: "JSON",
+			success: function(resultData) { 
+				$(current_widget).html(resultData);
+				if(data_col !== undefined){
+					//alert(data_col);
+					$(current_widget).find('ul > li').removeClass(function (index, className) {
+						return (className.match (/(^|\s)col-\S+/g) || []).join(' ');
+					});
+					$(current_widget).find('ul > li').addClass(data_col);
+				}
+				if(data_play == 1){
+					play_it($(current_widget).children('.playlist'));
+				}
+				if(!resultData || resultData.length === 0 || resultData === '') {
+					$(current_widget).parents('.widget').remove();
+				}
+				current_widget = null;
+				data_play = null;
+				data_col = null;
+				className = null;
+				
+			},
+			error: function() { 
+				// run alert;
+			}
+		});
+		},widgetime);
+		widgetime += 500;
+	});
+}
+
+var page = 1;
+function loadmore(btn){
+	page++;
+	var container = $(btn).parents('.playlist-container');
+	$(container).find('.load-more').css('display', 'none');
+	$(container).children('.load').show();
+
+	$.ajax({
+		type: 'POST',
+		url: window.location.href,
+		data: {page : page},
+		dataType: "JSON",
+		success: function(resultData) {
+			if(resultData == "") {
+				$(container).children('.load').html(" ");
+				return;
+			}else{
+				$(container).children('.load').hide();
+				$(container).children('.playlist').append(resultData);
+				$(container).children('.load-more').css('display', 'block');
+			}
+			container 	= null;
+		},
+		error: function() { 
+			// run alert; 
+		}
+	});
+}
+
+
+function isnight() {
+    var date = new Date();
+    return (date.getHours() > 20 || date.getHours() < 6);
+}
+

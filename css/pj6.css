@@ -26,7 +26,6 @@ body {
 
 .text-center {
     text-align: center;
-    display: table-cell;
     vertical-align: middle
 }
 .upper {
@@ -152,7 +151,8 @@ margin: 10px 0 40px;
 
 .features {
     padding: 40px 0;
-    overflow: hidden
+    overflow: hidden;
+        display:block
 }
 /*
 .features .container {
